@@ -1,0 +1,88 @@
+<html>
+<head>
+<link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css>
+    <script src=https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js></script>
+    <script src=https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js></script>   
+    <link rel=icon href=>
+    <link rel=stylesheet href="style.css">
+    <meta name=viewport content=width=device-width, initial-scale=1.0><title>index</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+// Load google charts
+
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+function addmore()
+{
+    var x= document.createElement("input");
+    x.setAttribute("name","labelnew");
+    x.setAttribute("type","text");
+    x.setAttribute("placeholder","enter label");
+
+
+    var y= document.createElement("input");
+    y.setAttribute("name","valuenew");
+    y.setAttribute("type","number");
+    y.setAttribute("placeholder","enter value");
+    
+    var br=document.createElement("br");
+
+    var main=document.getElementById("main");
+    
+    main.appendChild(x);
+    main.appendChild(y);
+    main.appendChild(br);
+
+}
+
+// Draw the chart and set the chart values
+function drawChart() {
+    
+    var labelnew=document.getElementsByName('labelnew');
+    var valueNew=document.getElementsByName('valuenew');
+   // console.log(labelnew);
+    //console.log(value);
+var newdata=[['Task', 'Hours per Day']];
+for(var i=0;i<labelnew.length;i++)
+{
+   //console.log(labelnew.item(i));
+    //console.log(valueNew.item(i));
+    newdata.push([labelnew.item(i).value,parseInt(valueNew.item(i).value)]);
+}
+console.log(newdata);
+  var data = google.visualization.arrayToDataTable(newdata);
+    var title= document.getElementById("title").value;
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':title, 'width':550, 'height':400};
+
+  // Display the chart inside the <div> element with id="piechart"
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+</script>
+</head>
+<body>
+    <div class="container justify-content-center" style="width: 100%;margin-left: 10%">   
+        <div class="row" style="height:20%"></div>   
+        <div class="row">
+            <div class="col-sm-6">
+        <button onclick="drawChart()">Make Chart</button></div>
+        <div class="col-sm-6">
+        <button onclick="addmore()">Add More</button></div>
+    </div>
+<div class="row">
+    <br><br>
+    <input type="text" placeholder="Enter Title" id="title">
+    <br><br>
+    <span id="main" class="input">
+<input type="text" name="labelnew" placeholder="enter label">
+<input type="number" name="valuenew" placeholder="enter value"><br>
+</span>
+</div>
+<div class="row">
+<div id="piechart"></div>
+</div>
+</div>
+</body>
+</html>
